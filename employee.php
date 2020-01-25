@@ -5,7 +5,28 @@ if(empty($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
     
 }
 ?>
+<style type="text/css">
+    .pagination {
+  display: inline-block;
+}
 
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
 
 <body class="animsition">
     <div class="page-wrapper">
@@ -237,9 +258,18 @@ if(empty($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
                                 <div class="table-responsive table-responsive-data2">
                                     <?php
                                                     require('controler/dbconn.php');
-                                                   
+                                                    if (isset($_GET['page']))
+                                                     {
+                                                        $pagecount = $_GET['page'] * 10 ;
+                                                        
+                                                     }
+                                                     else{
+                                                        $pagecount = 1 * 10;
+                                                       
+                                                     }
+                                                     $page = $pagecount - 10;
 
-                                                    $sql = "SELECT * FROM user order by id desc limit 20";
+                                                    $sql = "SELECT * FROM user order by id desc limit 10 OFFSET $page";
                                                     if($result = mysqli_query($connection, $sql)){
                                                     $rowcount=mysqli_num_rows($result);
                                                     if(mysqli_num_rows($result) > 0){
@@ -350,6 +380,45 @@ if(empty($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
                                         
                                 </div>
                                 <!-- END DATA TABLE -->
+                                <div class="pagination">
+                                                 <?php
+                                                    require('controler/dbconn.php');
+                                                   
+
+                                                    $sql = "SELECT * FROM user";
+                                                    if ($result=mysqli_query($connection,$sql)){
+                                                        $rowcount=mysqli_num_rows($result);
+                                                        
+                                                    }
+                                                    else
+                                                    {
+                                                        $rowcount = "1";
+                                                    }
+                                                    ?>
+                                                    <a href="employee.php?page=1">&laquo;</a>
+                                                    <?php
+                                                    $rowno = ($rowcount / 10);
+                                                    if(($rowcount % 10)== 0 )
+                                                    {
+                                                        $rowmod = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                       $rowmod = 1; 
+                                                    }
+                                                    $total = $rowno + $rowmod;
+                                                    for($i=1; $i<=$total;$i++){
+                                                     ?>
+                                                     <a href="employee.php?page=<?=$i;?>"><?php echo $i; ?></a>
+                                                     <?php
+                                                    }
+
+                                                    ?>
+                                                     <a href="employee.php?page=<?=$rowno;?>">&raquo;</a>
+  
+  
+ 
+</div>
                             </div>
                         </div>
                         
