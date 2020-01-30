@@ -1,22 +1,29 @@
-
-
-        $("#login").click(function(){
-        	alert("hii");
-//     var email = $("#email").val();
-//     var password = $("#pass").val();
-//     alert(email);
-
-//  if(email.length == "" || password.length == ""){
-//     alert("enter e-mail" );
-//      return false;
-// }else{
-//     $.ajax({
-//       type : 'POST',
-//       url  : 'controler/login.php',
-//       data : {email:email,password:password},
-//       success : function(){
-//           //window.location = '../form.php';
-//        }
-//       });
-//    }
-});  
+$(document).ready(function() {
+   
+ $("#search").keypress(function() {
+   	
+      
+       var name = $('#search').val();
+       
+   $.ajax({
+               
+               type: "POST",
+             
+               url: "controler/searchresult.php",
+              
+               data: {
+                 
+                   search: name
+               },
+             
+               success: function(data) {
+                   
+                   $(".tableresult").html(data);
+                     $(".formcard").hide();
+                      $(".tableresult").removeClass("col-lg-9"); 
+                        $(".tableresult").addClass("col-md-12")
+               }
+           });
+       
+   });
+});

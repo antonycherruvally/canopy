@@ -1,0 +1,14 @@
+<?php
+
+// include "dbconn.php";
+
+// if (isset($_POST['search'])) {
+
+//    $Name = $_POST['search'];
+//  echo name;
+//    $Query = "SELECT * FROM user WHERE Name LIKE '%$Name%' ";
+//    if($result = mysqli_query($connection, $sql)){
+//                                                     if(mysqli_num_rows($result) > 0){
+//                                                         }}
+echo "hii";
+                                                        ?>
